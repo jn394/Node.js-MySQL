@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS bamazon;
+
 CREATE DATABASE bamazon;
 
 USE bamazon;
@@ -42,3 +44,5 @@ INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES ("Laptop","Electronics",800,200);
 
 SELECT * FROM products;
+
+select * from products where item_id = 2
