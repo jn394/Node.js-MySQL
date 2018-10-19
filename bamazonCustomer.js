@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId + "\n");
+
     readProducts();
 });
 
@@ -26,10 +26,12 @@ function readProducts() {
     console.log("Selecting all products...\n");
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
-        // Log all results of the SELECT statement
-        console.log(res);
+        console.log(res[0][0]);
+        // for (var i = 0; i < test.length; i++) {
+        //     console.log(res[i]);
+        // };
     });
-    promptMessage()
+    // promptMessage()
 };
 
 function promptMessage() {
@@ -71,7 +73,6 @@ function promptMessage() {
 function readThisProduct(ID) {
     connection.query("SELECT * FROM products WHERE item_id =" + ID, function (err, res) {
         if (err) throw err;
-        // Log all results of the SELECT statement
         console.log(res);
         console.log(res[0].stock_quantity);
     });

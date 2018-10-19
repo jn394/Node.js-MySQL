@@ -14,35 +14,37 @@ PRIMARY KEY (item_id)
 );
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Toothbrush","Toiletries",3,500);
+VALUES ("Toothbrush","Toiletries",3,20);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
 VALUES ("Bicycle","Sports & Outdoors",200,50);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Television","Electronics",1000,100);
+VALUES ("Television","Electronics",1000,10);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Chair","Furniture",50,50);
+VALUES ("Chair","Furniture",50,5);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Coffee Table","Furniture",65,30);
+VALUES ("Coffee Table","Furniture",65,13);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Sneakers","Sports & Outdoors",60,50);
+VALUES ("Sneakers","Sports & Outdoors",60,25);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Yogurt","Food",1,500);
+VALUES ("Yogurt","Food",1,23);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Razor","Toiletries",10,150);
+VALUES ("Razor","Toiletries",10,19);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Book","Literature",20,500);
+VALUES ("Book","Literature",20,65);
 
 INSERT INTO products(product_name, department_name, price, stock_quantity)
-VALUES ("Laptop","Electronics",800,200);
+VALUES ("Laptop","Electronics",800,22);
 
 SELECT * FROM products;
 
-select * from products where item_id = 2
+select * from products where item_id = 2;
+
+select * from products where stock_quantity < 5;
