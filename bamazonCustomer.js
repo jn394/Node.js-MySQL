@@ -23,15 +23,15 @@ connection.connect(function (err) {
 
 
 function readProducts() {
-    console.log("Selecting all products...\n");
     connection.query("SELECT * FROM products", function (err, res) {
         if (err) throw err;
-        console.log(res[0][0]);
-        // for (var i = 0; i < test.length; i++) {
-        //     console.log(res[i]);
-        // };
+        console.log("---------------------------------------------");
+        for (var i = 0; i < res.length; i++) {
+            console.log("ID: " + res[i].item_id + "\n" + "Product: " + res[i].product_name + "\n" + "Department: " + res[i].department_name + "\n" + "Price: " + res[i].price + "\n" + "Quantity: " + res[i].stock_quantity);
+            console.log("---------------------------------------------");
+        };
+        promptMessage()
     });
-    // promptMessage()
 };
 
 function promptMessage() {
@@ -49,15 +49,10 @@ function promptMessage() {
 
     ]).then(function (answers) {
 
-        console.log(answers.productID);
-
         var productAmount = parseInt(answers.productAmount);
 
         connection.query("SELECT * FROM products WHERE item_id =" + answers.productID, function (err, res) {
             if (err) throw err;
-
-            // console.log(res);
-            // console.log(res[0].stock_quantity);
 
             if (productAmount < res[0].stock_quantity) {
 
@@ -67,14 +62,6 @@ function promptMessage() {
                 console.log("Insufficient Quantity!")
             }
         });
-    });
-};
-
-function readThisProduct(ID) {
-    connection.query("SELECT * FROM products WHERE item_id =" + ID, function (err, res) {
-        if (err) throw err;
-        console.log(res);
-        console.log(res[0].stock_quantity);
     });
 };
 
@@ -90,13 +77,8 @@ function purchaseProduct(ID, total, productAmount, price) {
             }
         ],
         function (err, res) {
-            console.log(res.affectedRows + " products updated!\n");
-            readThisProduct(ID);
-            console.log("You have purchased the item! Cost: $" + productAmount * price);
+            console.log("\n"+"You have purchased the item! Cost: $" + productAmount * price + "\n");
         }
     );
-
-    // logs the actual query being run
-    console.log(query.sql);
 };
 
