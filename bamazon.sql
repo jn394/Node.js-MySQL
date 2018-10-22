@@ -18,6 +18,7 @@ CREATE TABLE departments (
 department_id INT(10) NOT NULL AUTO_INCREMENT,
 department_name VARCHAR(20),
 over_head_costs INT(10),
+profits DECIMAL(10,2),
 PRIMARY KEY (department_id)
 );
 
@@ -53,29 +54,27 @@ VALUES ("Laptop","Electronics",899.89,12,0);
 
 SELECT * FROM products;
 
-INSERT INTO departments(department_name, over_head_costs)
-VALUES ("Toiletries", 300);
+INSERT INTO departments(department_name, over_head_costs, profits)
+VALUES ("Toiletries", 300, 0);
 
-INSERT INTO departments(department_name, over_head_costs)
-VALUES ("Sports & Outdoors", 450);
+INSERT INTO departments(department_name, over_head_costs, profits)
+VALUES ("Sports & Outdoors", 450, 0);
 
-INSERT INTO departments(department_name, over_head_costs)
-VALUES ("Electronics", 1200);
+INSERT INTO departments(department_name, over_head_costs, profits)
+VALUES ("Electronics", 1200, 0);
 
-INSERT INTO departments(department_name, over_head_costs)
-VALUES ("Furniture", 200);
+INSERT INTO departments(department_name, over_head_costs, profits)
+VALUES ("Furniture", 200, 0);
 
-INSERT INTO departments(department_name, over_head_costs)
-VALUES ("Food", 50);
+INSERT INTO departments(department_name, over_head_costs, profits)
+VALUES ("Food", 50, 0);
 
-INSERT INTO departments(department_name, over_head_costs)
-VALUES ("Literature", 100);
+INSERT INTO departments(department_name, over_head_costs, profits)
+VALUES ("Literature", 100, 0);
 
-select * from departments;
+SELECT * FROM departments;
 
-ALTER TABLE departments
-ADD total_profit DECIMAL(10,2);
-
-SELECT department_id, department_name, product_sales
+SELECT departments.department_id, departments.department_name, SUM(departments.over_head_costs) AS over_head_costs, products.product_sales, departments.profits AS total_profit
 FROM departments
-LEFT JOIN products ON departments.department_name = products.department_name;
+INNER JOIN products ON departments.department_name = products.department_name
+GROUP BY department_name;

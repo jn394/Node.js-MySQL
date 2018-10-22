@@ -45,13 +45,48 @@ function startSupervisor() {
 };
 
 function viewSales() {
-    connection.query("ALTER TABLE departments ADD total_profit DECIMAL(10,2)", function (err) {
-        if (err) throw err;
-    });
-
-    connection.query("SELECT * FROM departments", function (err, res) {
-        if (err) throw err;
-
+    connection.query("SELECT departments.department_id, departments.department_name, SUM(departments.over_head_costs) AS over_head_costs, products.product_sales, departments.profits AS total_profit FROM departments INNER JOIN products ON departments.department_name = products.department_name GROUP BY department_name;", function (err, res) {
+        if (err) throw err; 
+        console.log("---------------------------------------------");
+        for (var i = 0; i < res.length; i++) {
+            console.log("ID: " + res[i].department_id + "\n" + "Department: " + res[i].department_name + "\n" + "Over Head Costs: " + res[i].over_head_costs + "\n" + "Product Sales: " + res[i].product_sales + "\n" + "Total Profits: " + res[i].total_profit);
+            console.log("---------------------------------------------");
+        };
         startSupervisor();
+    });
+};
+
+
+function createDepartment() {
+    inquirer.prompt([
+        {
+            name: "department",
+            message: "What department do you want to add?",
+            type: "input"
+        },
+        {
+            name: "cost",
+            message: "What is the over head cost?",
+            type: "input"
+        },
+        {
+            name: "profits",
+            message: "What are the profits so far?",
+            type: "input"
+        }
+
+    ]).then(function (answers) {
+        connection.query("INSERT INTO departments SET ?", {
+            department_name: answers.department,
+            over_head_costs: answers.cost,
+            profits: answers.profits
+        }, function (err) {
+            if (err) throw err;
+            console.log("---------------------------------------------");
+            console.log("Successfully added " + answers.department + "!!");
+            console.log("---------------------------------------------");
+            startSupervisor();
+        }
+        );
     });
 };
