@@ -17,7 +17,6 @@ var connection = mysql.createConnection({
 
 connection.connect(function (err) {
     if (err) throw err;
-    console.log("connected as id " + connection.threadId + "\n");
     startManager();
 });
 
@@ -35,17 +34,16 @@ function startManager() {
 
         switch (answers.options) {
             case "View Product For Sale":
-                readProducts();
-                break;
+                return readProducts();
+
             case "View Low Inventory":
-                lowInventory();
-                break;
+                return lowInventory();
+
             case "Add to Inventory":
-                addInventory();
-                break;
+                return addInventory();
+                
             case "Add New Product":
-                addNewProduct();
-                break;
+                return addNewProduct();
         };
     });
 };

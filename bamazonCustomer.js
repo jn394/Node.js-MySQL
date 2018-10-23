@@ -29,7 +29,7 @@ function readProducts() {
             console.log("ID: " + res[i].item_id + "\n" + "Product: " + res[i].product_name + "\n" + "Department: " + res[i].department_name + "\n" + "Price: " + res[i].price + "\n" + "Quantity: " + res[i].stock_quantity + "\n" + "Sales: " + res[i].product_sales);
             console.log("---------------------------------------------");
         };
-        startCustomer()
+        startCustomer();
     });
 };
 
@@ -54,12 +54,13 @@ function startCustomer() {
         connection.query("SELECT * FROM products WHERE item_id =" + answers.productID, function (err, res) {
             if (err) throw err;
 
-            if (productAmount < res[0].stock_quantity) {
+            if (productAmount <= res[0].stock_quantity) {
 
                 purchaseProduct(ID, res[0].stock_quantity, productAmount, res[0].price);
             }
             else {
-                console.log("Insufficient Quantity!")
+                console.log("Insufficient Quantity!");
+                startCustomer();
             }
         });
     });
